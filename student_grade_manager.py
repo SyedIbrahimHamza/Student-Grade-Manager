@@ -23,3 +23,22 @@ while True:
             marks.append(mark)
         student.append({'roll_number': roll_number, 'name': name, 'marks': marks})
         print("Student added successfully.")
+
+    if choice == '2':
+        if not student:
+            print("No students found.")
+        else:
+            print("\n=== All Students ===")
+            for s in student:
+                print(f"Roll Number: {s['roll_number']}, Name: {s['name']}, Marks: {s['marks']}")
+
+    if choice == '3':
+        roll_number = input("Enter Roll Number to search: ")
+        found = False
+        for s in student:
+            if s['roll_number'] == roll_number:
+                print(f"Roll Number: {s['roll_number']}, Name: {s['name']}, Marks: {s['marks']}")
+                found = True
+                break
+        if not found:
+            print("Student not found.")
