@@ -1,6 +1,6 @@
 # Student Grade Manager
 
-A simple terminal-based **Student Grade Manager** built with Python. The program uses a menu-driven interface to add students, view student records, and search for students by roll number or name.
+A simple terminal-based **Student Grade Manager** built with Python. The program provides a menu-driven interface to add students, view student records, search for students, and generate a basic class report.
 
 ## What It Does
 
@@ -10,13 +10,19 @@ The program currently allows you to:
 * Add a new student
 * Store the student's roll number and name
 * Take marks for 5 subjects
-* Store student records using Python dictionaries
-* Store multiple students in a Python list
-* View all stored student records
+* Store multiple student records using a Python list
+* Organize each student record using a dictionary
+* View all student records
 * Search for a student by roll number
 * Search for a student by name
-* Display a message when a student is not found
+* Perform case-insensitive name searches
+* Generate a class report
+* Calculate total marks for each student
+* Calculate the class average
+* Identify the class topper
+* Generate a list of students who are failing
 * Validate the menu choice before continuing
+* Handle an empty student list
 
 ## Current Features
 
@@ -26,7 +32,7 @@ The program currently allows you to:
 | 2      | View All Students                         | ✅ Complete     |
 | 3      | Search by Roll Number                     | ✅ Complete     |
 | 4      | Search by Name                            | ✅ Complete     |
-| 5      | Class Report (Topper, Average, Fail List) | 🔄 Coming Soon |
+| 5      | Class Report (Topper, Average, Fail List) | ✅ Complete     |
 | 6      | Delete Student                            | 🔄 Coming Soon |
 | 7      | Exit                                      | 🔄 Coming Soon |
 
@@ -83,6 +89,8 @@ Enter marks for subject 5: 82
 Student added successfully.
 ```
 
+The five marks are collected using a `for` loop and converted into numbers using `float()`.
+
 Each student is stored as a dictionary:
 
 ```python
@@ -130,17 +138,34 @@ Roll Number: 101, Name: Ali, Marks: [85.0, 78.0, 90.0, 88.0, 82.0]
 
 The program loops through the student list and compares the entered roll number with each student's stored roll number.
 
-If no matching student is found:
+A Boolean variable called `found` tracks whether a matching student exists. Once the student is found, `break` stops the search.
+
+If no matching student exists:
 
 ```text
 Student not found.
 ```
 
-The search uses a Boolean variable called `found` to keep track of whether a matching student exists. The `break` statement stops the search once a matching roll number is found.
-
 ## Search by Name
 
 Select **4** to search for a student by name.
+
+The name search is **case-insensitive**.
+
+For example, all of the following can match a student named `Ali`:
+
+```text
+Ali
+ali
+ALI
+aLi
+```
+
+This is achieved using:
+
+```python
+if s['name'].lower() == name.lower():
+```
 
 Example:
 
@@ -151,32 +176,102 @@ Enter Name to search: ali
 Roll Number: 101, Name: Ali, Marks: [85.0, 78.0, 90.0, 88.0, 82.0]
 ```
 
-The name search is **case-insensitive** because the program converts both the stored name and entered name to lowercase:
-
-```python
-if s['name'].lower() == name.lower():
-```
-
-Therefore, searches such as:
-
-```text
-Ali
-ali
-ALI
-aLi
-```
-
-can match the same student name.
-
 If no matching student is found:
 
 ```text
 Student not found.
 ```
 
+## Class Report
+
+Select **5** to generate a class report.
+
+The class report currently provides:
+
+* Average marks
+* Class topper
+* Fail list
+
+Example:
+
+```text
+Enter your choice (1-7): 5
+
+=== Class Report ===
+Average Marks: 400.5
+Topper: Ali with 423.0 marks
+Fail List: No failures
+```
+
+### Total Marks
+
+The program calculates each student's total using Python's built-in `sum()` function:
+
+```python
+total = sum(s['marks'])
+```
+
+For example, if a student has:
+
+```text
+[85, 78, 90, 88, 82]
+```
+
+their total is:
+
+```text
+423
+```
+
+### Class Average
+
+The program adds the total marks of all students and divides them by the number of students:
+
+```python
+average = total_marks / len(student)
+```
+
+The calculated value represents the average total marks of the class.
+
+### Finding the Topper
+
+The program keeps track of the student with the highest total marks.
+
+It starts with:
+
+```python
+topper = None
+```
+
+Then each student's total is compared with the current topper:
+
+```python
+if topper is None or total > sum(topper['marks']):
+    topper = s
+```
+
+At the end, the student with the highest total marks is displayed as the class topper.
+
+### Fail List
+
+The program checks each student's total marks:
+
+```python
+if sum(s['marks']) < 25:
+    fail_List.append(s)
+```
+
+Students with a total below **25 marks** are added to the fail list.
+
+If nobody meets the fail condition, the program displays:
+
+```text
+No failures
+```
+
 ## Data Structure
 
-The program uses a **list of dictionaries** to store student records.
+The project uses a **list of dictionaries** to store student records.
 
 The main list is:
 
@@ -184,7 +279,7 @@ The main list is:
 student = []
 ```
 
-Each student is stored as a dictionary containing three pieces of information:
+Each student is stored in the following structure:
 
 ```python
 {
@@ -215,62 +310,67 @@ student = [
 
 While building this project, I practiced:
 
-* Using Python lists to store multiple student records
+* Using Python lists to store multiple records
 * Using dictionaries to organize student information
 * Taking user input with `input()`
-* Using `for` loops to collect marks for five subjects
+* Using `for` loops to collect marks
 * Using `float()` to convert marks into numbers
 * Using `while` loops for menu control
-* Validating user input
-* Using `for` loops to search through student records
-* Comparing roll numbers using conditional statements
-* Performing case-insensitive string comparisons
-* Using a Boolean variable such as `found` to track search results
-* Using `break` to stop a search after finding a matching roll number
-* Checking whether a list is empty before displaying records
-* Appending dictionaries to a list
+* Validating menu input
+* Using `for` loops to search through records
+* Comparing strings and roll numbers
+* Performing case-insensitive searches using `.lower()`
+* Using Boolean variables such as `found`
+* Using `break` to stop a search
+* Checking whether a list is empty
+* Using `sum()` to calculate total marks
+* Calculating class averages
+* Finding the student with the highest marks
+* Creating a fail list using conditions
+* Using `None` to initialize the topper variable
 
 ## Project Status
 
 This project is currently **in progress**.
 
-### Implemented
+### Implemented Features
 
 * ✅ Add students
 * ✅ Store roll number, name, and marks
+* ✅ Store multiple students
 * ✅ View all students
 * ✅ Search by roll number
 * ✅ Search by name
 * ✅ Case-insensitive name search
+* ✅ Class report
+* ✅ Total marks calculation
+* ✅ Class average calculation
+* ✅ Topper identification
+* ✅ Fail list
 * ✅ Menu choice validation
 * ✅ Empty student list handling
 
 ### Not Yet Implemented
 
-The following options are currently displayed in the menu but their functionality has not yet been implemented:
+The following menu options are currently displayed but their functionality has not yet been implemented:
 
-* 🔄 Class Report
-* 🔄 Topper calculation
-* 🔄 Class average
-* 🔄 Fail list
 * 🔄 Delete Student
-* 🔄 Exit functionality
+* 🔄 Exit
 
 ## Future Improvements
 
 Planned improvements include:
 
-* Search students by partial name
-* Calculate total marks
-* Calculate student averages
-* Identify the class topper
-* Generate the class average
-* Generate a list of failing students
 * Delete student records
-* Validate marks before storing them
-* Prevent duplicate roll numbers
 * Add a proper exit option
+* Validate marks before storing them
+* Prevent marks below 0 or above 100
+* Prevent duplicate roll numbers
 * Improve error handling for invalid mark input
+* Search students by partial name
+* Display individual student percentages
+* Add grades such as A, B, C, D, and F
+* Improve the class report
 * Improve the overall terminal interface
 
 ## Technologies Used
@@ -281,9 +381,12 @@ Planned improvements include:
 * `while` loops
 * `for` loops
 * Conditional statements
-* User input with `input()`
-* Type conversion using `float()`
+* `input()`
+* `float()`
+* `sum()`
+* String methods
+* Boolean variables
 
 ## Author
 
-Built as a Python practice project to learn the fundamentals of lists, dictionaries, loops, conditions, user input, and basic student record management.
+Built as a Python practice project to learn the fundamentals of lists, dictionaries, loops, conditions, functions built into Python, user input, searching, and basic student record management.
