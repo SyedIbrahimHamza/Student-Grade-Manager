@@ -51,3 +51,23 @@ while True:
                 found = True
         if not found:
             print("Student not found.")
+    if choice == '5':
+        if not student:
+            print("No students found.")
+        else:
+            total_marks = 0
+            topper = None
+            fail_List = []
+            for s in student:
+                total = sum(s['marks'])
+                total_marks += total
+                if topper is None or total > sum(topper['marks']):
+                    topper = s
+            average = total_marks / len(student) if student else 0
+            for s in student:
+                if sum(s['marks']) < 25:
+                    fail_List.append(s)
+            print(f"\n=== Class Report ===")
+            print(f"Average Marks: {average}")
+            print(f"Topper: {topper['name']} with {sum(topper['marks'])} marks")
+            print(f"Fail List: {', '.join([s['name'] for s in fail_List]) if fail_List else 'No failures'}")
