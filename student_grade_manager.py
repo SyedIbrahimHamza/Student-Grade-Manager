@@ -42,3 +42,12 @@ while True:
                 break
         if not found:
             print("Student not found.")
+    if choice == '4':
+        name = input("Enter Name to search: ")
+        found = False
+        for s in student:
+            if s['name'].lower() == name.lower():
+                print(f"Roll Number: {s['roll_number']}, Name: {s['name']}, Marks: {s['marks']}")
+                found = True
+        if not found:
+            print("Student not found.")
