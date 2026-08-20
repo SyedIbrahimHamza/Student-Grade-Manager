@@ -82,5 +82,6 @@ while True:
                 break
             if not found:
                 print("Student not found.")
-                
-        
+    if choice == '7':
+        print("Exiting the program.")
+        break
