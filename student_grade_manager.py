@@ -71,3 +71,16 @@ while True:
             print(f"Average Marks: {average}")
             print(f"Topper: {topper['name']} with {sum(topper['marks'])} marks")
             print(f"Fail List: {', '.join([s['name'] for s in fail_List]) if fail_List else 'No failures'}")
+    if choice =='6':
+        roll_number = input("Enter Roll Number to delete: ")
+        found = False
+        for s in student:
+            if s['roll_number'] == roll_number:
+                student.remove(s)
+                print("Student deleted sucesfully.")
+                found = True
+                break
+            if not found:
+                print("Student not found.")
+                
+        
