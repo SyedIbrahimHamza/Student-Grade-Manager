@@ -1,6 +1,6 @@
 # Student Grade Manager
 
-A simple terminal-based **Student Grade Manager** built with Python. The program provides a menu-driven interface to add students, view student records, search for students, and generate a basic class report.
+A simple terminal-based **Student Grade Manager** built with Python. The program provides a menu-driven interface to add students, view student records, search for students, generate a basic class report, and delete student records.
 
 ## What It Does
 
@@ -21,6 +21,7 @@ The program currently allows you to:
 * Calculate the class average
 * Identify the class topper
 * Generate a list of students who are failing
+* Delete a student by roll number
 * Validate the menu choice before continuing
 * Handle an empty student list
 
@@ -33,7 +34,7 @@ The program currently allows you to:
 | 3      | Search by Roll Number                     | ✅ Complete     |
 | 4      | Search by Name                            | ✅ Complete     |
 | 5      | Class Report (Topper, Average, Fail List) | ✅ Complete     |
-| 6      | Delete Student                            | 🔄 Coming Soon |
+| 6      | Delete Student                            | ✅ Complete     |
 | 7      | Exit                                      | 🔄 Coming Soon |
 
 ## How to Run
@@ -182,6 +183,8 @@ If no matching student is found:
 Student not found.
 ```
 
+Unlike the roll number search, the name search does not use `break`, so it can display multiple students with the same name.
+
 ## Class Report
 
 Select **5** to generate a class report.
@@ -201,6 +204,12 @@ Enter your choice (1-7): 5
 Average Marks: 400.5
 Topper: Ali with 423.0 marks
 Fail List: No failures
+```
+
+If no students have been added yet, the program displays:
+
+```text
+No students found.
 ```
 
 ### Total Marks
@@ -223,15 +232,17 @@ their total is:
 423
 ```
 
+The total marks are used to calculate the class average and identify the topper.
+
 ### Class Average
 
 The program adds the total marks of all students and divides them by the number of students:
 
 ```python
-average = total_marks / len(student)
+average = total_marks / len(student) if student else 0
 ```
 
-The calculated value represents the average total marks of the class.
+The calculated value represents the average **total marks** of the class.
 
 ### Finding the Topper
 
@@ -267,6 +278,35 @@ If nobody meets the fail condition, the program displays:
 
 ```text
 No failures
+```
+
+## Delete a Student
+
+Select **6** to delete a student using their roll number.
+
+The program asks for the roll number:
+
+```text
+Enter your choice (1-7): 6
+Enter Roll Number to delete: 101
+
+Student deleted sucesfully.
+```
+
+The program loops through the student list and compares the entered roll number with each student's roll number.
+
+When a matching student is found, the student is removed using:
+
+```python
+student.remove(s)
+```
+
+The `found` Boolean variable is used to track whether the student was successfully deleted.
+
+If the student cannot be found, the program is intended to display:
+
+```text
+Student not found.
 ```
 
 ## Data Structure
@@ -322,12 +362,14 @@ While building this project, I practiced:
 * Performing case-insensitive searches using `.lower()`
 * Using Boolean variables such as `found`
 * Using `break` to stop a search
+* Removing records from a list using `remove()`
 * Checking whether a list is empty
 * Using `sum()` to calculate total marks
 * Calculating class averages
 * Finding the student with the highest marks
 * Creating a fail list using conditions
 * Using `None` to initialize the topper variable
+* Deleting student records by roll number
 
 ## Project Status
 
@@ -347,31 +389,32 @@ This project is currently **in progress**.
 * ✅ Class average calculation
 * ✅ Topper identification
 * ✅ Fail list
+* ✅ Delete student
 * ✅ Menu choice validation
 * ✅ Empty student list handling
 
 ### Not Yet Implemented
 
-The following menu options are currently displayed but their functionality has not yet been implemented:
+The following menu option is currently displayed but its functionality has not yet been implemented:
 
-* 🔄 Delete Student
 * 🔄 Exit
 
 ## Future Improvements
 
 Planned improvements include:
 
-* Delete student records
 * Add a proper exit option
 * Validate marks before storing them
 * Prevent marks below 0 or above 100
 * Prevent duplicate roll numbers
 * Improve error handling for invalid mark input
+* Improve the delete student not-found handling
 * Search students by partial name
 * Display individual student percentages
 * Add grades such as A, B, C, D, and F
 * Improve the class report
 * Improve the overall terminal interface
+* Add confirmation before deleting a student
 
 ## Technologies Used
 
@@ -384,9 +427,11 @@ Planned improvements include:
 * `input()`
 * `float()`
 * `sum()`
+* `remove()`
 * String methods
 * Boolean variables
+* `None`
 
 ## Author
 
-Built as a Python practice project to learn the fundamentals of lists, dictionaries, loops, conditions, functions built into Python, user input, searching, and basic student record management.
+Built as a Python practice project to learn the fundamentals of lists, dictionaries, loops, conditions, functions built into Python, user input, searching, deleting records, and basic student record management.
