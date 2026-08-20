@@ -77,7 +77,7 @@ while True:
         for s in student:
             if s['roll_number'] == roll_number:
                 student.remove(s)
-                print("Student deleted sucesfully.")
+                print("Student deleted successfully.")
                 found = True
                 break
             if not found:
