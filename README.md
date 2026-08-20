@@ -1,6 +1,6 @@
 # Student Grade Manager
 
-A simple terminal-based **Student Grade Manager** built with Python. The program provides a menu-driven interface to add students, view student records, search for students, generate a basic class report, and delete student records.
+A simple terminal-based **Student Grade Manager** built with Python. The program provides a menu-driven interface to add students, view student records, search for students, generate a basic class report, delete student records, and exit the program.
 
 ## What It Does
 
@@ -22,20 +22,21 @@ The program currently allows you to:
 * Identify the class topper
 * Generate a list of students who are failing
 * Delete a student by roll number
+* Exit the program
 * Validate the menu choice before continuing
 * Handle an empty student list
 
 ## Current Features
 
-| Option | Feature                                   | Status         |
-| ------ | ----------------------------------------- | -------------- |
-| 1      | Add Student                               | ✅ Complete     |
-| 2      | View All Students                         | ✅ Complete     |
-| 3      | Search by Roll Number                     | ✅ Complete     |
-| 4      | Search by Name                            | ✅ Complete     |
-| 5      | Class Report (Topper, Average, Fail List) | ✅ Complete     |
-| 6      | Delete Student                            | ✅ Complete     |
-| 7      | Exit                                      | 🔄 Coming Soon |
+| Option | Feature                                   | Status     |
+| ------ | ----------------------------------------- | ---------- |
+| 1      | Add Student                               | ✅ Complete |
+| 2      | View All Students                         | ✅ Complete |
+| 3      | Search by Roll Number                     | ✅ Complete |
+| 4      | Search by Name                            | ✅ Complete |
+| 5      | Class Report (Topper, Average, Fail List) | ✅ Complete |
+| 6      | Delete Student                            | ✅ Complete |
+| 7      | Exit                                      | ✅ Complete |
 
 ## How to Run
 
@@ -183,7 +184,7 @@ If no matching student is found:
 Student not found.
 ```
 
-Unlike the roll number search, the name search does not use `break`, so it can display multiple students with the same name.
+The search does not use `break`, so if multiple students have the same name, all matching records can be displayed.
 
 ## Class Report
 
@@ -303,11 +304,33 @@ student.remove(s)
 
 The `found` Boolean variable is used to track whether the student was successfully deleted.
 
-If the student cannot be found, the program is intended to display:
+If the roll number does not match any student, the program displays:
 
 ```text
 Student not found.
 ```
+
+## Exit the Program
+
+Select **7** to exit the program.
+
+The program displays:
+
+```text
+Enter your choice (1-7): 7
+
+Exiting the program.
+```
+
+The program uses `break` to stop the main `while True` loop:
+
+```python
+if choice == '7':
+    print("Exiting the program.")
+    break
+```
+
+This ends the program safely.
 
 ## Data Structure
 
@@ -370,6 +393,7 @@ While building this project, I practiced:
 * Creating a fail list using conditions
 * Using `None` to initialize the topper variable
 * Deleting student records by roll number
+* Exiting a program using `break`
 
 ## Project Status
 
@@ -390,31 +414,33 @@ This project is currently **in progress**.
 * ✅ Topper identification
 * ✅ Fail list
 * ✅ Delete student
+* ✅ Exit program
 * ✅ Menu choice validation
 * ✅ Empty student list handling
 
 ### Not Yet Implemented
 
-The following menu option is currently displayed but its functionality has not yet been implemented:
+The core menu functionality is now implemented.
 
-* 🔄 Exit
+However, several improvements can still be added in the future, such as stronger input validation, duplicate roll-number prevention, and improved error handling.
 
 ## Future Improvements
 
 Planned improvements include:
 
-* Add a proper exit option
 * Validate marks before storing them
 * Prevent marks below 0 or above 100
 * Prevent duplicate roll numbers
 * Improve error handling for invalid mark input
-* Improve the delete student not-found handling
+* Improve delete student not-found handling
 * Search students by partial name
 * Display individual student percentages
 * Add grades such as A, B, C, D, and F
 * Improve the class report
 * Improve the overall terminal interface
 * Add confirmation before deleting a student
+* Add subject names instead of only subject numbers
+* Format marks and totals more clearly
 
 ## Technologies Used
 
@@ -428,10 +454,11 @@ Planned improvements include:
 * `float()`
 * `sum()`
 * `remove()`
+* `break`
 * String methods
 * Boolean variables
 * `None`
 
 ## Author
 
-Built as a Python practice project to learn the fundamentals of lists, dictionaries, loops, conditions, functions built into Python, user input, searching, deleting records, and basic student record management.
+Built as a Python practice project to learn the fundamentals of lists, dictionaries, loops, conditions, functions built into Python, user input, searching, deleting records, generating reports, and controlling program flow.
